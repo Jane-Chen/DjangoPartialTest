@@ -5,6 +5,10 @@ from django.core.urlresolvers import reverse
 from django.views import generic
 from polls.models import Poll, Choice
 
+class LovelyView():
+	'''just a test view'''
+	print "Maybe a lovely page"
+
 class IndexView(generic.ListView):
 	template_name = 'polls/index.html'
 	context_object_name = 'latest_poll_list'
