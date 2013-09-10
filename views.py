@@ -5,10 +5,13 @@ from django.core.urlresolvers import reverse
 from django.views import generic
 from polls.models import Poll, Choice
 
-def index(request):
-    latest_poll_list = Poll.objects.order_by('-pub_date')[:5]
-    output = ', '.join([p.question for p in latest_poll_list])
-    return HttpResponse(output)
+class IndexView(generic.ListView):
+	template_name = 'polls/index.html'
+	context_object_name = 'latest_poll_list'
+	
+	def get_queryset(self):
+		"""Return the last five published polls"""
+		return Poll.objects.order_by('-pub_date')[:5]
 
 class DetailView(generic.DetailView):
 	model = Poll
